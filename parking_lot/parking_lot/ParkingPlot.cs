@@ -4,16 +4,13 @@ using System.Text;
 
 namespace parking_lot
 {
-
-
-
     public class ParkingPlot
     {
-        const int AvailablePlotSize = 6;
-        List<string> Park;
+        const int ParkingSize = 6;
+        List<string> Cars;
         public ParkingPlot()
         {
-            var Park = new List<string>()
+            Cars = new List<string>()
             {
                 "KA-01-HH-1234",
                 "KA-01-HH-9999",
@@ -24,24 +21,22 @@ namespace parking_lot
             };
         }
 
-        public bool CheckParkingIsAvailable()
+        public bool IsAvailable()
         {
-            return Park.Count < (AvailablePlotSize - 1);
+            return Cars.Count < (ParkingSize );
         }
 
         public void Leave(string CarNumber)
         {
-            Park.Remove(CarNumber);
+            Cars.Remove(CarNumber.ToUpper());
         }
         public void Book(string CarNumber)
         {
-            Park.Add(CarNumber);
+            Cars.Add(CarNumber.ToUpper());
         }
         public IEnumerable<string> Status()
         {
-            return Park;
+            return Cars;
         }
-
-
     }
 }

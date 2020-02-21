@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace parking_lot
 {
@@ -34,20 +35,23 @@ status".Split('\n',StringSplitOptions.RemoveEmptyEntries);
                 switch (UserInput())
                 {
                     case "1":
-                        Console.WriteLine("Enter Car Number:...  ");
-                        var carNumber_Book = Console.ReadLine();
-                        parkingPlot.Book(carNumber_Book);
+                        if (parkingPlot.IsAvailable())
+                        {
+                            parkingPlot.Book(GetCarNumber());
+                        }
+                        else
+                        {
+                            Console.WriteLine("Parking is full..");
+                        }
                         break;
-                    case "2":
-                        Console.WriteLine("Enter Car Number:...  ");
-                        var carNumber_Leave = Console.ReadLine();
-                        parkingPlot.Book(carNumber_Leave);
+                    case "2":                        
+                        parkingPlot.Leave(GetCarNumber());
                         break;
                     case "3":
                         var cars = parkingPlot.Status();
                         foreach (var car in cars)
                         {
-                            Console.WriteLine(car)
+                            Console.WriteLine(car);
                         }
                         break;
                     case "4":
@@ -57,6 +61,30 @@ status".Split('\n',StringSplitOptions.RemoveEmptyEntries);
                         break;
                 }
             }
+        }
+
+        public static bool ValidateCar(string car)
+        {
+            return Regex.IsMatch(car,"^[A-Za-z]{2,2}-[0-9]{0,2}-[A-Za-z]{0,2}-[0-9]{0,4}$");           
+        }
+
+
+        public static string GetCarNumber()
+        {
+            while (true)
+            {
+                Console.WriteLine("Enter Car Number:...  ");
+                var carNumber = Console.ReadLine();
+                if (ValidateCar(carNumber))
+                {
+                    return carNumber;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Car Number:...  ");
+                }
+            }
+            
         }
 
         public static string UserInput()
