@@ -38,7 +38,7 @@ namespace parking_lot
             for (int index = 0; index < Cars.Length; index++)
             {
                 var car = Cars[index];
-                if (car == string.Empty)
+                if (string.IsNullOrEmpty(car))
                 {
                     return index + 1;
                 }
