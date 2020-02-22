@@ -1,0 +1,11 @@
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\bin\Debug\netcoreapp2.1\parking_lot.deps.json
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\bin\Debug\netcoreapp2.1\parking_lot.runtimeconfig.json
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\bin\Debug\netcoreapp2.1\parking_lot.runtimeconfig.dev.json
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\bin\Debug\netcoreapp2.1\parking_lot.dll
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\bin\Debug\netcoreapp2.1\parking_lot.pdb
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.csprojAssemblyReference.cache
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.csproj.CoreCompileInputs.cache
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.AssemblyInfoInputs.cache
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.AssemblyInfo.cs
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.dll
+C:\Users\Angel\Downloads\parking_lot_2.0.0\parking_lot\parking_lot\parking_lot\obj\Debug\netcoreapp2.1\parking_lot.pdb

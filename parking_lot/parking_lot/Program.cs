@@ -5,96 +5,94 @@ namespace parking_lot
 {
     class Program
     {
-        public string[] InputData()
-        {
-            return @"create_parking_lot 6 
-park KA-01-HH-1234 
-park KA-01-HH-9999 
-park KA-01-BB-0001 
-park KA-01-HH-7777 
-park KA-01-HH-2701 
-park KA-01-HH-3141 
-leave KA-01-HH-3141 4 
-status 
-park KA-01-P-333 
-park DL-12-AA-9999 
-leave KA-01-HH-1234 4 
-leave KA-01-BB-0001 6 
-leave DL-12-AA-9999 2 
-park KA-09-HH-0987 
-park CA-09-IO-1111 
-park KA-09-HH-0123 
-status".Split('\n',StringSplitOptions.RemoveEmptyEntries);
-        }
-
         static void Main(string[] args)
         {
-            ParkingPlot parkingPlot = new ParkingPlot();
+            Parking carParking = new Car(6, new CarValidation());
             while (true)
             {
-                switch (UserInput())
+                var userInput = UserInput1();
+                switch (userInput.Command)
                 {
-                    case "1":
-                        if (parkingPlot.IsAvailable())
+                    case ParkingOption.Book:
+                        if (carParking.IsAvailable() != -1)
                         {
-                            parkingPlot.Book(GetCarNumber());
+                            try
+                            {
+                                int allocatedNumber = carParking.Book(userInput.Car);
+                                Console.WriteLine("Allocated slot number: {0}", allocatedNumber);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                         }
                         else
                         {
                             Console.WriteLine("Parking is full..");
                         }
                         break;
-                    case "2":                        
-                        parkingPlot.Leave(GetCarNumber());
-                        break;
-                    case "3":
-                        var cars = parkingPlot.Status();
-                        foreach (var car in cars)
+                    case ParkingOption.Leave:
+                        try
                         {
-                            Console.WriteLine(car);
+                            int freeSlot = carParking.Leave(userInput.Car);
+                            Console.WriteLine("Registration number {0} with Slot Number {1} is free with Charge {2}", userInput.Car, freeSlot, userInput.Hour);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
+                        break;
+                    case ParkingOption.Status:
+                        var cars = carParking.Status();
+                        if (cars.Length == 0)
+                        {
+                            Console.WriteLine("No car parked.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Slot No. Registration No.");
+                            for (int index = 0; index < cars.Length; index++)
+                            {
+                                Console.WriteLine("{0}\t{1}", index + 1, cars[index]);
+                            }
                         }
                         break;
-                    case "4":
-                        return;
-                    default:
-                        Console.WriteLine("Wrong input...! Please select option from the list.");
-                        break;
                 }
             }
         }
 
-        public static bool ValidateCar(string car)
+        public static ParkingOptionDetails UserInput1()
         {
-            return Regex.IsMatch(car,"^[A-Za-z]{2,2}-[0-9]{0,2}-[A-Za-z]{0,2}-[0-9]{0,4}$");           
-        }
+            Console.WriteLine("command... ");
+            var command = Console.ReadLine().Split(' ');
 
-
-        public static string GetCarNumber()
-        {
-            while (true)
+            ParkingOptionDetails parkingOptionDetails = new ParkingOptionDetails();
+            switch (command[0].ToLower())
             {
-                Console.WriteLine("Enter Car Number:...  ");
-                var carNumber = Console.ReadLine();
-                if (ValidateCar(carNumber))
-                {
-                    return carNumber;
-                }
-                else
-                {
-                    Console.WriteLine("Enter Valid Car Number:...  ");
-                }
-            }
-            
-        }
+                case "park":
+                    parkingOptionDetails.Command = ParkingOption.Book;
+                    parkingOptionDetails.Car = command[1];
+                    break;
+                case "leave":
+                    parkingOptionDetails.Command = ParkingOption.Leave;
+                    parkingOptionDetails.Car = command[1];
+                    parkingOptionDetails.Hour = int.Parse(command[2]);
+                    break;
+                case "status":
+                    parkingOptionDetails.Command = ParkingOption.Status;
+                    break;
 
-        public static string UserInput()
-        {
-            Console.WriteLine("Enter you choise...");
-            Console.WriteLine("1. Book Parking");
-            Console.WriteLine("2. Leave Parking");
-            Console.WriteLine("3. Parking Status");
-            Console.WriteLine("4. Exit");
-            return Console.ReadLine();
+            }
+            return parkingOptionDetails;
         }
+    }
+
+
+    class ParkingOptionDetails
+    {
+        public ParkingOption Command { get; set; }
+        public string Car { get; set; }
+        public int Hour { get; set; }
     }
 }
